@@ -28,6 +28,8 @@ class RegisterForm(forms.ModelForm):
         add_placeholder(self.fields['email'], 'Ex: email@email.com')
         add_placeholder(self.fields['first_name'], 'Ex: wendell')
         add_placeholder(self.fields['last_name'], 'Ex: dev')
+        add_placeholder(self.fields['password'], 'Type you password')
+        add_placeholder(self.fields['password2'], 'Repeat you password')
 
 
 
