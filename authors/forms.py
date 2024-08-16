@@ -39,7 +39,7 @@ class RegisterForm(forms.ModelForm):
 
     last_name = forms.CharField(error_messages={'required': 'Write your last name'}, label='Last name')
 
-    email = forms.EmailField(error_messages={'required': 'E-mail is required'}, label='Email', help_texts = {'e-mail': 'The email must be valid'})
+    email = forms.EmailField(error_messages={'required': 'E-mail is required'}, label='Email', help_text = {'e-mail': 'The email must be valid'})
 
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'your password'}),
                                            error_messages={'required': 'Password must not be empty'}, help_text=('Password must have at least one uppercase letter'
