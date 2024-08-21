@@ -37,7 +37,7 @@ def register_create(request):
     return redirect('authors:register')
 
 
-@login_required(login_url='authors:login', redirect_field_name='')
+
 def login_view(request):
     form = LoginForm
     return render(request, 'authors/pages/login.html', {'form': form, 'form_action': reverse('authors:login_create')})
@@ -48,23 +48,32 @@ def login_create(request):
         raise Http404()
     
     form = LoginForm(request.POST)
+
     login_url = reverse('authors:login')
 
     if form.is_valid():
-        authenticated_user = authenticate(username=form.cleaned_data.get('username', ''), password=form.cleaned_data.get('password', ''),)
-
+        authenticated_user = authenticate(
+            username=form.cleaned_data.get('username', ''),
+            password=form.cleaned_data.get('password', ''),
+        )
         if authenticated_user is not None:
-            messages.success(request, 'You are logged in')
+            messages.success(request, 'Your are logged in.')
             login(request, authenticated_user)
         else:
             messages.error(request, 'Invalid credentials')
-        
     else:
         messages.error(request, 'Invalid username or password')
+
     return redirect(login_url)
-
     
-
+    
+@login_required(login_url='authors:login', redirect_field_name='next')
 def logout_view(request):
+    if not request.POST:
+        return redirect(reverse('authors:login'))
+
+    if request.POST.get('username') != request.user.username:
+        return redirect(reverse('authors:login'))
+
     logout(request)
     return redirect(reverse('authors:login'))
