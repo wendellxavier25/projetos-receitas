@@ -14,8 +14,8 @@ class RegisterForm(forms.ModelForm):
         add_placeholder(self.fields['email'], 'Ex: email@email.com')
         add_placeholder(self.fields['first_name'], 'Ex: wendell')
         add_placeholder(self.fields['last_name'], 'Ex: dev')
-        add_placeholder(self.fields['password'], 'Type you password')
-        add_placeholder(self.fields['password2'], 'Repeat you password')
+        add_placeholder(self.fields['password'], 'Type your password')
+        add_placeholder(self.fields['password2'], 'Repeat your password')
 
     username = forms.CharField(label='Username', help_text='Username must have letters, number or one of those @/./+/-/_ . ''The length should be between 4 and 150 characters.', 
                                error_messages={'required': 'This field must not be empty', 'min_length': 'Username must have at last 4 characters',
@@ -32,7 +32,7 @@ class RegisterForm(forms.ModelForm):
                                'one lowercase letter and one number. The length should be'
                                'at least 8 characters'), validators=[strong_password])
 
-    password2 = forms.CharField(widget=forms.PasswordInput(), label='Password2', error_messages={'required': 'Please, reapt you password'})
+    password2 = forms.CharField(widget=forms.PasswordInput(), label='Password2', error_messages={'required': 'Please, reapt your password'})
 
     
 
