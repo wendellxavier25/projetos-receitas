@@ -1,12 +1,11 @@
-from .base import AUthorsBaseTest
+from .base import AuthorsBaseTest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+import pytest
 
-class AuthorRegisterTest(AUthorsBaseTest):
-    def get_by_placeholder(self, web_element, placeholder):
-        return web_element.find_element(By.XPATH, f'//input[@placeholder="{placeholder}"]')
-
-    def fill_form_wendell_data(self, form):
+@pytest.mark.fuctional_teste
+class AuthorRegisterTest(AuthorsBaseTest):
+    def fill_form_dummy_data(self, form):
         fields = form.find_elements(By.TAG_NAME, 'input')
 
         for field in fields:
@@ -21,7 +20,7 @@ class AuthorRegisterTest(AUthorsBaseTest):
         self.browser.get(self.live_server_url + '/authors/register/')
         form = self.get_form()
 
-        self.fill_form_wendell_data(form)
+        self.fill_form_dummy_data(form)
         form.find_element(By.NAME, 'email').send_keys('wendellteste@email.com')
 
         callback(form)
