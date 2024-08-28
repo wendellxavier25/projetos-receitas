@@ -1,0 +1,15 @@
+{% extends 'global/base.html' %}
+
+{% block 'title' %}Dashboard({{ request.user }}){% endblock 'title' %}
+
+{% block 'content' %}
+
+    <div class="main-content center container">
+        <h2>Dashboard({{ request.user }})</h2>
+    </div>
+
+    {% include 'global/partials/messages.html' %}
+
+    
+
+{% endblock 'content' %}
