@@ -39,3 +39,7 @@ class AuthorsLoginTest(AuthorsBaseTest):
         password = self.get_by_placeholder(form, 'Type your password')
         username.send_keys(' ')
         password.send_keys(' ')
+
+        form.submit()
+
+        self.assertIn('Invalid username or password')
