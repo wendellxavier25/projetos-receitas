@@ -51,8 +51,6 @@ def login_create(request):
     
     form = LoginForm(request.POST)
 
-    login_url = reverse('authors:login')
-
     if form.is_valid():
         authenticated_user = authenticate(
             username=form.cleaned_data.get('username', ''),
@@ -78,6 +76,7 @@ def logout_view(request):
     if request.POST.get('username') != request.user.username:
         messages.error(request, 'Invalid logout user')
         return redirect(reverse('authors:login'))
+    
     messages.success(request, 'logged out successfully')
     logout(request)
     return redirect(reverse('authors:login'))
@@ -92,7 +91,7 @@ def dashboard(request):
 
 @login_required(login_url='authors:login', redirect_field_name='next')
 def dashboard_recipe_edit(request, id):
-    recipe = Recipe.objects.get(is_published=False, author=request.user, pk=id)
+    recipe = Recipe.objects.filter(is_published=False, author=request.user, pk=id).first()
     
     if not recipe:
         raise Http404()
@@ -109,7 +108,24 @@ def dashboard_recipe_edit(request, id):
         recipe.save()
 
         messages.success(request, 'recipe saved successfully')
-        return redirect(reverse('authors:dashboard_recipe_edit', args=(id)))
+        return redirect(reverse('authors:dashboard_recipe_edit', args=(id,)))
 
 
     return render(request, 'authors/pages/dashboard_recipe.html', {'form': form})
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard_recipe_new(request):
+    form = AuthorRecipeForm(data=request.POST or None, files=request.FILES or None)
+
+    if form.is_valid():
+        recipe: Recipe = form.save(commit=False)
+
+        recipe.author = request.user
+        recipe.preparation_steps_is_html = False
+        recipe.is_published = False
+
+        recipe.save()
+
+        messages.success(request, 'recipe saved successfully')
+        return redirect(reverse('authors:dashboard_recipe_edit', args=(id,)))
+    return render(request, 'authors/pages/dashboard_recipe.html', {'form': form, 'form_action': reverse('authors:dashboard_recipe_new')})
