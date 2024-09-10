@@ -1,5 +1,6 @@
 import os
-from django.views.generic import ListView
+from django.db.models.query import QuerySet
+from django.views.generic import ListView, DetailView
 from recipes.models import Recipe
 from utils.pagination import make_pagination
 from django.db.models import Q
@@ -71,4 +72,23 @@ class RecipeListViewSearch(RecipeListViewBase):
         ctx = super().get_context_data(*args, **kwargs)
         search_term = self.request.GET.get('q', '')
         ctx.update({'page_title': f'Search for "{search_term}"', 'search_term': search_term, 'additional_url_query': f'&q={search_term}',})
+        return ctx
+    
+
+class RecipeDetail(DetailView):
+    model = Recipe
+    context_object_name = 'recipe'
+    template_name = 'recipes/pages/recipe-view.html'
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(self, *args, **kwargs)
+        qs = qs.filter(is_published=True)
+        return qs
+            
+        
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+
+        ctx.update({'is_detail_page': True})
         return ctx

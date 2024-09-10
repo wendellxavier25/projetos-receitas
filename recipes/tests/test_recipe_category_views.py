@@ -23,3 +23,4 @@ class RecipeCategoryViewsTest(TestCase):
 
       def test_recipe_category_template_dont_load_recipes_not_published(self):
         recipe = self.make_recipe(is_published=False)
+        response = self.client.get(reverse('recipes:recipe', kwargs={'pk': recipe.category.id}))
