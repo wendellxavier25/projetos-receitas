@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from recipes.models import Recipe
 from utils.pagination import make_pagination
 from django.db.models import Q
+from django.http import Http404
 
 
 PER_PAGE = int(os.environ.get('PER_PAGE', 6))
@@ -32,12 +33,22 @@ class RecipeListViewHome(RecipeListViewBase):
     template_name = 'recipes/pages/home.html'
 
 
-class RecipeListViewcategory(RecipeListViewBase):
+class RecipeListViewCategory(RecipeListViewBase):
     template_name = 'recipes/pages/category.html'
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+        search_term = self.request.GET.get('q', '')
+        ctx.update({'title': f'{ctx.get("recipes")[0].category.name}'})
+        return ctx
 
     def get_queryset(self, *args, **kwargs):
         qs = super().get_queryset(*args, **kwargs)
         qs = qs.filter(category__id=self.kwargs.get('category_id'))
+
+        if not qs:
+            raise Http404()
+
         return qs
         
 
@@ -48,6 +59,10 @@ class RecipeListViewSearch(RecipeListViewBase):
 
     def get_queryset(self, *args, **kwargs):
         search_term = self.request.GET.get('q', '')
+
+        if not search_term:
+            raise Http404()
+
         qs = super().get_queryset(*args, **kwargs)
         qs = qs.filter(Q(Q(title__icontains=search_term) | Q(description__icontains=search_term),), is_published=True).order_by('-id')
         return qs
