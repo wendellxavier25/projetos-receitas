@@ -1,4 +1,5 @@
 import os
+from django.shortcuts import render
 from django.db.models.query import QuerySet
 from django.http.response import HttpResponse as HttpResponse
 from django.views.generic import ListView, DetailView
@@ -10,6 +11,7 @@ from django.http import JsonResponse
 from django.forms.models import model_to_dict
 
 PER_PAGE = int(os.environ.get('PER_PAGE', 6))
+
 
 class RecipeListViewBase(ListView):
     model = Recipe
