@@ -96,7 +96,7 @@ class RecipeDetail(DetailView):
     template_name = 'recipes/pages/recipe-view.html'
 
     def get_queryset(self, *args, **kwargs):
-        qs = super().get_queryset(self, *args, **kwargs)
+        qs = super().get_queryset(*args, **kwargs)
         qs = qs.filter(is_published=True)
         return qs
             
