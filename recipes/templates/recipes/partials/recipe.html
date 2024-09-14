@@ -86,4 +86,13 @@
             </div>
     {% endif %}
 
+    {% if recipes.tags.all %}
+            <p>
+                Tags:
+                    {% for tag in recipes.tags.all%}
+                        <a href="{% url 'recipes:tag' tag.slug %}">{{ tag.name }}</a>, 
+                    {% endfor %}
+            </p>
+    {% endif %}
+
 </div>
