@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Category, Recipe
+from tag.models import Tag
+from django.contrib.contenttypes.admin import GenericStackedInline
 
 
 
@@ -7,7 +9,10 @@ from .models import Category, Recipe
 class CategoryAdmin(admin.ModelAdmin):
     ...
     
-    
+class TagInline(GenericStackedInline):
+    model = Tag
+    fields = 'name',
+    extra = 1
     
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
@@ -19,6 +24,8 @@ class RecipeAdmin(admin.ModelAdmin):
     list_editable = ['is_published']
     ordering = ['-id']
     prepopulated_fields = {"slug": ['title']}
+
+    inlines = [ TagInline ]
     
 
 
