@@ -1,6 +1,4 @@
 import os
-from django.shortcuts import render
-from django.db.models.query import QuerySet
 from django.http.response import HttpResponse as HttpResponse
 from django.views.generic import ListView, DetailView
 from recipes.models import Recipe
