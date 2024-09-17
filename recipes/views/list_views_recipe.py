@@ -8,6 +8,8 @@ from django.http import Http404
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from tag.models import Tag
+from django.utils import translation
+from django.utils.translation import gettext as _
 
 PER_PAGE = int(os.environ.get('PER_PAGE', 6))
 
@@ -30,7 +32,9 @@ class RecipeListViewBase(ListView):
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
         page_obj, pagination_range = make_pagination(self.request, ctx.get('recipes'), PER_PAGE)
-        ctx.update({'recipes': page_obj, 'pagination_range': pagination_range})
+        html_language = translation.get_language()
+
+        ctx.update({'recipes': page_obj, 'pagination_range': pagination_range, 'html_language' : html_language})
         return ctx
 
     
@@ -56,8 +60,9 @@ class RecipeListViewCategory(RecipeListViewBase):
 
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
-        search_term = self.request.GET.get('q', '')
-        ctx.update({'title': f'{ctx.get("recipes")[0].category.name}'})
+        category_translation = _('Category')
+
+        ctx.update({'title': f'{ctx.get("recipes")[0].category.name}- 'f'{category_translation} |'})
         return ctx
 
     def get_queryset(self, *args, **kwargs):

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-16 11:50-0300\n"
+"POT-Creation-Date: 2024-09-17 10:20-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,85 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: recipes/templates/recipes/partials/recipe.html:60
-msgid "Preparation"
-msgstr "Preparo"
+#: recipes/models.py:20
+msgid "Title"
+msgstr "Título"
 
-#: recipes/templates/recipes/partials/recipe.html:66
+#: recipes/models.py:21
+msgid "Description"
+msgstr "Descrição"
+
+#: recipes/models.py:23
+#, fuzzy
+#| msgid "Preparation"
+msgid "Preparation time"
+msgstr "Preparação por tempo"
+
+#: recipes/models.py:24
+#, fuzzy
+#| msgid "Preparation"
+msgid "Preparation time unit"
+msgstr "Preparação por unidade de tempo"
+
+#: recipes/models.py:25 recipes/templates/recipes/partials/recipe.html:66
 msgid "Servings"
 msgstr "Porções"
+
+#: recipes/models.py:26
+#, fuzzy
+#| msgid "Servings"
+msgid "Servings unit"
+msgstr "Porções por unidade"
+
+#: recipes/models.py:27
+#, fuzzy
+#| msgid "Preparation"
+msgid "Preparation steps"
+msgstr "Preparação por pessoa"
+
+#: recipes/models.py:28
+#, fuzzy
+#| msgid "Preparation"
+msgid "Preparation steps is html"
+msgstr "Preparação por pessoa é HTML"
+
+#: recipes/models.py:29
+msgid "Created at"
+msgstr "Creado em"
+
+#: recipes/models.py:30
+msgid "Update at"
+msgstr "Atualizado em"
+
+#: recipes/models.py:31
+msgid "Is published"
+msgstr "É publicado"
+
+#: recipes/models.py:32
+msgid "Cover"
+msgstr "Capa de imgaem"
+
+#: recipes/models.py:33 recipes/views/list_views_recipe.py:63
+msgid "Category"
+msgstr "Categoria"
+
+#: recipes/models.py:34
+msgid "Author"
+msgstr "Autor"
+
+#: recipes/models.py:35
+msgid "Tags"
+msgstr "Tags"
+
+#: recipes/templates/recipes/partials/recipe.html:60
+msgid "Preparation"
+msgstr "Preparação"
 
 #: recipes/templates/recipes/partials/recipe.html:76
 msgid "read more"
 msgstr "ler mais"
+
+#, fuzzy
+#~| msgid "Category"
+#~ msgid "Categoria"
+#~ msgstr "Categoria"
