@@ -1,12 +1,12 @@
 from django.test import TestCase
 from django.urls import reverse, resolve
-from recipes import views
+from recipes.views import site
 
 class RecipeCategoryViewsTest(TestCase):
 
       def test_recipe_category_view_fuction_is_correct(self):
         view = resolve(reverse('recipes:category', kwargs={'category_id': 1000}))
-        self.assertIs(view.func.view_class, views.RecipeListViewcategory)
+        self.assertIs(view.func.view_class, site.RecipeListViewcategory)
 
       def test_recipe_category_view_returns_404_if_no_recipes_found(self):
          response = self.client.get(reverse('recipes:category', kwargs={'category_id': 1000}))
