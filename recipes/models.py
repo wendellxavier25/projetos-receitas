@@ -7,6 +7,8 @@ from django.utils.translation import gettext_lazy as _
 import os
 from django.conf import settings
 from PIL import Image
+from collections import defaultdict
+from django.forms import ValidationError
 
 
 class Category(models.Model):
@@ -79,4 +81,16 @@ class Recipe(models.Model):
                 ...
 
         return saved
+    
+    def clean(self, *args, **kwargs):
+        error_messages = defaultdict(list)
+
+        recipe_from_db = Recipe.objects.filter(title__eixact=self.title).first()
+
+        if recipe_from_db:
+            if recipe_from_db.pk != self.pk:
+                error_messages['title'].append('Found recipes with the same title')
+
+        if error_messages:
+            raise ValidationError(error_messages)
     
