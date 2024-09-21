@@ -9,6 +9,8 @@ from django.conf import settings
 from PIL import Image
 from collections import defaultdict
 from django.forms import ValidationError
+from django.db.models.functions import Concat
+from django.db.models import F, Value
 
 
 class Category(models.Model):
@@ -20,6 +22,15 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categorys'
+
+class RecipeManager(models.Manager):
+    def get_published(self):
+        return self.filter(is_published=True).annotate(
+            author_full_name=Concat(
+                F('authorr__first_name'), Value(' '),
+                F('authorr__last_name'), Value('('),
+                F('authorr__username'), Value(')'),
+            )).order_by('-id')
 
 class Recipe(models.Model):
     title = models.CharField(max_length=50, verbose_name=_("Title"))
