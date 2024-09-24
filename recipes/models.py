@@ -27,12 +27,13 @@ class RecipeManager(models.Manager):
     def get_published(self):
         return self.filter(is_published=True).annotate(
             author_full_name=Concat(
-                F('authorr__first_name'), Value(' '),
-                F('authorr__last_name'), Value('('),
-                F('authorr__username'), Value(')'),
+                F('author__first_name'), Value(' '),
+                F('author__last_name'), Value('('),
+                F('author__username'), Value(')'),
             )).order_by('-id')
 
 class Recipe(models.Model):
+    objects = RecipeManager()
     title = models.CharField(max_length=50, verbose_name=_("Title"))
     description = models.CharField(max_length=150, verbose_name=_("Description"))
     slug = models.SlugField(unique=True,)
