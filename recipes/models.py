@@ -48,7 +48,7 @@ class Recipe(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created at"))
     update_at = models.DateField(auto_now=True, verbose_name=_("Update at"))
     is_published = models.BooleanField(default=False, verbose_name=_("Is published"))
-    cover = models.ImageField(upload_to='recipes/covers/%Y/%m/%d/', verbose_name=_("Cover"))
+    cover = models.ImageField(upload_to='recipes/covers/%Y/%m/%d/', verbose_name=_("Cover"), null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, verbose_name=_("Category"))
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name=_("Author"))
     tags = models.ManyToManyField(Tag, blank=True, default='', verbose_name=_("Tags"))
