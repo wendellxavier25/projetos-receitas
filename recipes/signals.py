@@ -13,7 +13,7 @@ def delete_cover(instance):
 
 @receiver(pre_delete, sender=Recipe)
 def recipe_cover_delete(sender, instance, *args, **kwargs):
-    old_instance = Recipe.objects.filter(pk=instance.pk).filter()
+    old_instance = Recipe.objects.filter(pk=instance.pk).filter().first()
 
     if old_instance:
         delete_cover(old_instance)
