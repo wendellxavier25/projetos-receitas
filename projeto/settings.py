@@ -1,7 +1,10 @@
 import os
 from pathlib import Path
 from django.contrib.messages import constants
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+from datetime import timedelta
+
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -27,10 +30,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'recipes',
     'authors',
+    'tag',
     'debug_toolbar',
-    'tag'
 ]
 
 MIDDLEWARE = [
@@ -136,10 +140,23 @@ MESSAGE_TAGS = {
     constants.WARNING: 'message-warning',
 }
 
+
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 8
-    }
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',  # noqa
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "BLACKLIST_AFTER_ROTATION": False,
+    "SIGNING_KEY": os.environ.get('SECRET_KEY_JWT', 'INSECURE'),
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
 
 INTERNAL_IPS = [
     "127.0.0.1",
