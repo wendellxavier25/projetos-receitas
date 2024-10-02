@@ -7,7 +7,7 @@ from rest_framework.routers import SimpleRouter
 app_name = 'recipes'
 
 recipe_api_v2_router = SimpleRouter()
-recipe_api_v2_router.register('recipes/ap/v2', views.RecipeAPIv2ViewSet, basename='recipe-api')
+recipe_api_v2_router.register('recipes/api/v2', views.RecipeAPIv2ViewSet, basename='recipe-api')
 
 urlpatterns = [
     path('', views.RecipeListViewHome.as_view(), name="home"),
