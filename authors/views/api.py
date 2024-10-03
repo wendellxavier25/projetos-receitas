@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from ..serializers import AuthorSerializer
 
 
-class AUthorViewSet(ReadOnlyModelViewSet):
+class AuthorViewSet(ReadOnlyModelViewSet):
     serializer_class = AuthorSerializer
     permission_classes = [IsAuthenticated]
     
