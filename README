@@ -1,7 +1,7 @@
 <h1> Project recipe </h1>
 <p> recipe project where reliaza publication of recites, being able to create, change and delete. with tag in the publication, being able to search for recipes, with automatic translator for english and portuguese(BR) </p>
 
-<h2>🛠 Ferramentas utilizadas</h2>
+<h2>🛠 tools used</h2>
 <div>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="40" alt="python logo" />
   <img src="https://skillicons.dev/icons?i=django" height="40" alt="django logo" />
